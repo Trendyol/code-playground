@@ -146,7 +146,7 @@ func (r *RustCompile) Execute() {
 	if r.Error == nil {
 		fmt.Print(r.Result)
 	} else {
-		Log.Error(r.Error)
+		Log.Error(*r.Error)
 	}
 
 	fmt.Println("-------------------------------------------------")

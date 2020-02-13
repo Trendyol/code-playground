@@ -1,0 +1,7 @@
+.idea
+*.iws
+*.iml
+*.ipr
+*.playground
+vendor/
+code-playground

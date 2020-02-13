@@ -21,7 +21,7 @@ code-playground go
 code-playground rust
 ```
 
-If you want use another editor for code-playground, export to ``PLAYGROUND ENVIRONMENT`` value. 
+If you want to use another editor for code-playground, export ``PLAYGROUND ENVIRONMENT`` value. 
 
 e.g. ``export PLAYGROUND_ENVIRONMENT="subl -w"`` (use sublime editor)
 

@@ -2,6 +2,9 @@
 
 CodePlayground is a playground tool for go and rust language.
 
+[![Go Report Card](https://goreportcard.com/badge/github.com/Trendyol/code-playground)](https://goreportcard.com/report/github.com/Trendyol/code-playground)
+[![Go Doc Card](https://godoc.org/github.com/Trendyol/code-playground?status.svg)](https://godoc.org/github.com/Trendyol/code-playground)
+
 ## Installation
 
 Use homebrews to install code-playground.

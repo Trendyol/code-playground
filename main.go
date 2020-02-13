@@ -12,11 +12,18 @@ var Log = NewLogger()
 func main() {
 
 	var file string
+	var path string
 	var share bool
 
 	var evaluate = func(playground IPlayground) {
 
-		editor := NewEditor(file, playground.Default())
+		init := playground.Default()
+
+		if len(path) > 0 {
+		 	init = playground.Import(path)
+		}
+
+		editor := NewEditor(file, init)
 
 		code, err := editor.Open()
 
@@ -69,6 +76,7 @@ func main() {
 
 	goCmd.Flags().BoolVarP(&share, "share", "s", false, "share playground")
 	rustCmd.Flags().BoolVarP(&share, "share", "s", false, "share playground")
+	rustCmd.Flags().StringVarP(&path, "import", "i", "", "import playground")
 
 	cmd.AddCommand(goCmd, rustCmd)
 

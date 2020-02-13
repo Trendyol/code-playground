@@ -6,6 +6,8 @@ import (
 	"fmt"
 	"io/ioutil"
 	"net/http"
+	"net/url"
+	"strings"
 )
 
 const RustHelloWorld = `
@@ -134,6 +136,61 @@ func (r *Rust) Share() {
 	}
 
 	Log.Info("https://play.rust-lang.org/?gist=" + result.ID)
+
+}
+
+func (r *Rust) Import(path string) string {
+
+	Spinner.Start()
+	defer Spinner.Stop()
+
+	if !strings.HasPrefix(path, "https://play.rust-lang.org") {
+		Log.Error("Import path is not valid")
+		return ""
+	}
+
+	url, err := url.Parse(path)
+
+	if err != nil {
+		Log.Error(err)
+		return ""
+	}
+
+	gist := url.Query().Get("gist")
+
+	if len(gist) == 0 {
+		Log.Error("gist not found")
+		return ""
+	}
+
+	response, err := http.Get("https://play.rust-lang.org/meta/gist/" + gist)
+
+	if err != nil {
+		Log.Error(err)
+		return ""
+	}
+
+	body, err := ioutil.ReadAll(response.Body)
+
+	if err != nil {
+		Log.Error(err)
+		return ""
+	}
+
+	result := &RustShare{}
+
+	err = json.Unmarshal(body, result)
+
+	if err != nil {
+		Log.Error(err)
+		return ""
+	}
+
+	r.Code = result.Code
+
+	Spinner.Stop()
+
+	return result.Code
 
 }
 

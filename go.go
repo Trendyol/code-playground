@@ -115,6 +115,10 @@ func (g *Go) Share() {
 
 }
 
+func (g *Go) Import(path string) string {
+	return ""
+}
+
 func (g *GoCompile) Execute() {
 
 	Spinner.Stop()

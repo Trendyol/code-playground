@@ -3,6 +3,7 @@ package main
 import (
 	"encoding/json"
 	"fmt"
+	"html"
 	"io/ioutil"
 	"net/http"
 	"net/url"
@@ -116,7 +117,41 @@ func (g *Go) Share() {
 }
 
 func (g *Go) Import(path string) string {
-	return ""
+
+	Spinner.Start()
+	defer Spinner.Stop()
+
+	if !strings.HasPrefix(path, "https://play.golang.org/p/") {
+		Log.Error("Import path is not valid")
+		return ""
+	}
+
+	response, err := http.Get(path)
+
+	if err != nil {
+		Log.Error(err)
+		return ""
+	}
+
+	body, err := ioutil.ReadAll(response.Body)
+
+	if err != nil {
+		Log.Error(err)
+		return ""
+	}
+
+	result := string(body)
+
+	tokens := strings.Split(result, "id=\"code\"")
+
+	tokens = strings.Split(tokens[1], ">")
+	tokens = strings.Split(tokens[1], "<")
+
+	result = html.UnescapeString(tokens[0])
+
+	Spinner.Stop()
+
+	return result
 }
 
 func (g *GoCompile) Execute() {

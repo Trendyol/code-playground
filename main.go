@@ -20,7 +20,7 @@ func main() {
 		init := playground.Default()
 
 		if len(path) > 0 {
-		 	init = playground.Import(path)
+			init = playground.Import(path)
 		}
 
 		editor := NewEditor(file, init)
@@ -75,6 +75,7 @@ func main() {
 	}
 
 	goCmd.Flags().BoolVarP(&share, "share", "s", false, "share playground")
+	goCmd.Flags().StringVarP(&path, "import", "i", "", "import playground")
 	rustCmd.Flags().BoolVarP(&share, "share", "s", false, "share playground")
 	rustCmd.Flags().StringVarP(&path, "import", "i", "", "import playground")
 

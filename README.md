@@ -30,7 +30,16 @@ e.g. ``export PLAYGROUND_ENVIRONMENT="subl -w"`` (use sublime editor)
 
 e.g. ``export PLAYGROUND_ENVIRONMENT="code -w"`` (use vscode editor)
 
-## Flags
+## Flags    
+
+### Naming Playground
+This command save to playground.
+
+```bash
+code-playground go my-go-playground
+
+code-playground rust my-rust-playground
+```
 
 ### Share (-s)
 This flag generate to playground link.

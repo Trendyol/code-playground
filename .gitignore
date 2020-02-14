@@ -3,5 +3,6 @@
 *.iml
 *.ipr
 *.playground
+*.swp
 vendor/
 code-playground

@@ -42,6 +42,10 @@ type Rust struct {
 	Code string
 }
 
+func (r *Rust) Type() string {
+	return ".rs"
+}
+
 func (r *Rust) Init(code string) {
 	r.Code = code
 }

@@ -11,12 +11,14 @@ const DefaultEditor = "vim"
 
 type Editor struct {
 	File    string
+	Type    string
 	Content string
 }
 
-func NewEditor(file, content string) *Editor {
+func NewEditor(file, t, content string) *Editor {
 	return &Editor{
 		File:    file,
+		Type:    t,
 		Content: content,
 	}
 }
@@ -55,7 +57,7 @@ func (e *Editor) Open() (string, error) {
 
 	if len(e.File) > 0 {
 
-		e.File = e.File + ".playground"
+		e.File = e.File + ".playground" + e.Type
 
 		file, err = os.Open(e.File)
 
@@ -85,7 +87,7 @@ func (e *Editor) Open() (string, error) {
 
 	} else {
 
-		file, err = ioutil.TempFile(os.TempDir(), "play-*.playground")
+		file, err = ioutil.TempFile(os.TempDir(), "play-*.playground"+e.Type)
 
 		if err != nil {
 			return "", err

@@ -41,6 +41,10 @@ type Go struct {
 	Code string
 }
 
+func (r *Go) Type() string {
+	return ".go"
+}
+
 func (g *Go) Init(code string) {
 	g.Code = code
 }

@@ -6,4 +6,5 @@ type IPlayground interface {
 	Evaluate()
 	Share()
 	Default() string
+	Type() string
 }

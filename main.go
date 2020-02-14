@@ -23,7 +23,7 @@ func main() {
 			init = playground.Import(path)
 		}
 
-		editor := NewEditor(file, init)
+		editor := NewEditor(file, playground.Type(), init)
 
 		code, err := editor.Open()
 

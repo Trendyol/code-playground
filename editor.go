@@ -68,6 +68,21 @@ func (e *Editor) Open() (string, error) {
 			}
 		}
 
+		f, err := file.Stat()
+
+		if err != nil {
+			return "", err
+		}
+
+		if f.Size() == 0 {
+
+			_, err = file.WriteString(e.Content)
+
+			if err != nil {
+				return "", err
+			}
+		}
+
 	} else {
 
 		file, err = ioutil.TempFile(os.TempDir(), "play-*.playground")

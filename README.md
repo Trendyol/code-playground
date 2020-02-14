@@ -41,6 +41,15 @@ code-playground go -s
 code-playground rust -s
 ```
 
+### Import (-i)
+This flag import to shared playground link.
+
+```bash
+code-playground go -i "https://play.golang.org/p/9geTEmeOzJO"
+
+code-playground rust -i "https://play.rust-lang.org/?gist=62a1c0b6f2aee0f7ebd78cfbddaae0e4"
+```
+
 Output
 
 ```bash

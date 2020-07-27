@@ -1,19 +1,37 @@
 package main
 
 import (
+	"fmt"
 	"github.com/briandowns/spinner"
 	"github.com/spf13/cobra"
+	"runtime"
 	"time"
 )
 
 var Spinner = spinner.New(spinner.CharSets[43], 100*time.Millisecond)
 var Log = NewLogger()
 
+var (
+	version = "dev"
+	commit  = "none"
+	date    = "unknown"
+	builtBy = "unknown"
+)
+
 func main() {
 
 	var file string
 	var path string
 	var share bool
+	var info = fmt.Sprintf(
+		"code-playground %s (%s, %s, %s) on %s (%s)",
+		version,
+		builtBy,
+		date,
+		commit,
+		runtime.GOOS,
+		runtime.GOARCH,
+	)
 
 	var evaluate = func(playground IPlayground) {
 
@@ -74,12 +92,21 @@ func main() {
 		},
 	}
 
+	var versionCmd = &cobra.Command{
+		Use:   "version",
+		Short: "Print the version number of Gaos",
+		Run: func(cmd *cobra.Command, args []string) {
+
+			fmt.Println(info)
+		},
+	}
+
 	goCmd.Flags().BoolVarP(&share, "share", "s", false, "share playground")
 	goCmd.Flags().StringVarP(&path, "import", "i", "", "import playground")
 	rustCmd.Flags().BoolVarP(&share, "share", "s", false, "share playground")
 	rustCmd.Flags().StringVarP(&path, "import", "i", "", "import playground")
 
-	cmd.AddCommand(goCmd, rustCmd)
+	cmd.AddCommand(goCmd, rustCmd, versionCmd)
 
 	_ = cmd.Execute()
 }

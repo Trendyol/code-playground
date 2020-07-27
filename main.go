@@ -94,7 +94,7 @@ func main() {
 
 	var versionCmd = &cobra.Command{
 		Use:   "version",
-		Short: "Print the version number of Gaos",
+		Short: "Print the version number of code-playground",
 		Run: func(cmd *cobra.Command, args []string) {
 
 			fmt.Println(info)

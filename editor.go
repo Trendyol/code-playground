@@ -1,9 +1,11 @@
 package main
 
 import (
+	"github.com/google/shlex"
 	"io/ioutil"
 	"os"
 	"os/exec"
+	"runtime"
 	"strings"
 )
 
@@ -25,24 +27,21 @@ func NewEditor(file, t, content string) *Editor {
 
 func (e *Editor) Capture() error {
 	editor := os.Getenv("PLAY_EDITOR")
-
 	if editor == "" {
 		editor = DefaultEditor
+
+		if runtime.GOOS == "windows" {
+			editor = "notepad"
+		}
 	}
 
-	executables := strings.Split(editor, " ")
-
+	executables, err := shlex.Split(editor)
+	if err != nil {
+		executables = []string{strings.Split(editor, " ")[0]}
+	}
 	executables = append(executables, e.File)
 
-	editor = executables[0]
-
-	executableEditor, err := exec.LookPath(editor)
-
-	if err != nil {
-		return err
-	}
-
-	cmd := exec.Command(executableEditor, executables[1:]...)
+	cmd := exec.Command(executables[0], executables[1:]...)
 	cmd.Stdin = os.Stdin
 	cmd.Stdout = os.Stdout
 	cmd.Stderr = os.Stderr

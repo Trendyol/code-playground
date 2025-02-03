@@ -1,3 +1,5 @@
+
+[![OpenSSF Scorecard](https://api.scorecard.dev/projects/github.com/Trendyol/code-playground/badge)](https://scorecard.dev/viewer/?uri=github.com/Trendyol/code-playground)
 # CodePlayground
 
 CodePlayground is a playground tool for go and rust language.
